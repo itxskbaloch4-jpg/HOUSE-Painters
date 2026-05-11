@@ -1,55 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Contact – Malta Contractor</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact – Malta Contractor</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-<link rel="stylesheet" href="style.css">
+  <style>
+    :root {
+      --gold: #c9a84c;
+      --gold-light: #e8c96b;
+      --dark: #0a0a0f;
+      --dark2: #111118;
+      --dark3: #1a1a26;
+      --glass: rgba(255,255,255,0.05);
+      --glass-border: rgba(201,168,76,0.2);
+      --text: #f0ece0;
+      --text-muted: rgba(240,236,224,0.55);
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--dark);
+      color: var(--text);
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* ─── CUSTOM CURSOR ─── */
+    #cursor {
+      position: fixed; width: 14px; height: 14px;
+      background: var(--gold); border-radius: 50%;
+      pointer-events: none; z-index: 99999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.08s, width 0.2s, height 0.2s, background 0.2s;
+    }
+    #cursor-trail {
+      position: fixed; width: 36px; height: 36px;
+      border: 1.5px solid var(--gold-light);
+      border-radius: 50%; pointer-events: none;
+      z-index: 99998; transform: translate(-50%, -50%);
+      transition: left 0.12s ease, top 0.12s ease, opacity 0.3s;
+      opacity: 0.5;
+    }
+
+    /* ─── BACKGROUND ORBS ─── */
+    .bg-orb {
+      position: fixed; border-radius: 50%;
+      filter: blur(100px); pointer-events: none; z-index: 0;
+    }
+    .orb1 { width: 500px; height: 500px; top: -100px; left: -150px;
+      background: radial-gradient(circle, rgba(201,168,76,0.12), transparent 70%); }
+    .orb2 { width: 400px; height: 400px; bottom: 10%; right: -100px;
+      background: radial-gradient(circle, rgba(100,60,200,0.10), transparent 70%);
+      animation: orbDrift 10s ease-in-out infinite alternate; }
+
+    @keyframes orbDrift {
+      from { transform: translate(0,0); }
+      to { transform: translate(40px, 30px); }
+    }
+
+    /* Header & Nav Styling to match luxury theme */
+    header {
+      position: fixed; width: 100%; padding: 25px 8%;
+      display: flex; justify-content: space-between; align-items: center;
+      z-index: 1000; background: rgba(10,10,15,0.8); backdrop-filter: blur(10px);
+    }
+    .logo { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--text); text-decoration: none; font-weight: 700; }
+    .logo span { color: var(--gold); }
+    nav a { color: var(--text); text-decoration: none; margin-left: 30px; font-weight: 400; transition: 0.3s; }
+    nav a:hover, nav a.active { color: var(--gold); }
+    .nav-cta { background: var(--gold); color: var(--dark); padding: 10px 20px; border-radius: 5px; }
+
+    .section-tag { color: var(--gold); text-transform: uppercase; letter-spacing: 2px; font-size: 14px; }
+    h2 { font-family: 'Playfair Display', serif; font-size: 42px; margin: 15px 0; }
+    .divider { width: 60px; height: 3px; background: var(--gold); margin: 0 auto 30px; }
+    
+    section { position: relative; z-index: 1; }
+  </style>
 </head>
 
 <body>
 
-<header>
-  <a href="index.html" class="logo">Malta<span>Contractor</span></a>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="about.html">About Us</a>
-    <a href="contact.html" class="active">Contact</a>
-    <a href="contact.html" class="nav-cta">Start Project</a>
-  </nav>
-</header>
+  <!-- Background Orbs -->
+  <div class="bg-orb orb1"></div>
+  <div class="bg-orb orb2"></div>
 
-<section class="services" style="padding-top:120px;">
-  <div class="section-header">
-    <span class="section-tag">Contact</span>
-    <h2>Get In Touch</h2>
-    <div class="divider"></div>
-  </div>
+  <!-- Custom Cursor -->
+  <div id="cursor"></div>
+  <div id="cursor-trail"></div>
 
-  <div style="text-align:center; line-height:2; font-size:1rem;">
-    <p><i class="fas fa-phone"></i> +356 9959 4806</p>
-    <p><i class="fas fa-envelope"></i> lukemicallef.mt@gmail.com</p>
-    <p><i class="fas fa-map-marker-alt"></i> Malta, Mediterranean</p>
-  </div>
+  <header>
+    <a href="index.html" class="logo">Malta<span>Contractor</span></a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About Us</a>
+      <a href="contact.html" class="active">Contact</a>
+      <a href="contact.html" class="nav-cta">Start Project</a>
+    </nav>
+  </header>
 
-  <!-- GOOGLE MAP -->
-  <div style="margin-top:40px; padding:0 8%;">
-    <iframe 
-      src="https://maps.google.com/maps?q=Malta&t=&z=13&ie=UTF8&iwloc=&output=embed"
-      width="100%" 
-      height="400" 
-      style="border:0;border-radius:12px;">
-    </iframe>
-  </div>
-</section>
+  <section class="services" style="padding-top:160px;">
+    <div class="section-header" style="text-align:center;">
+      <span class="section-tag">Contact</span>
+      <h2>Get In Touch</h2>
+      <div class="divider"></div>
+    </div>
 
-<footer>
-  <p style="text-align:center;padding:20px;">© 2025 Malta Contractor</p>
-</footer>
+    <div style="text-align:center; line-height:2.5; font-size:1.1rem; color: var(--text-muted);">
+      <p><i class="fas fa-phone" style="color:var(--gold); margin-right:10px;"></i> +356 9959 4806</p>
+      <p><i class="fas fa-envelope" style="color:var(--gold); margin-right:10px;"></i> lukemicallef.mt@gmail.com</p>
+      <p><i class="fas fa-map-marker-alt" style="color:var(--gold); margin-right:10px;"></i> Malta, Mediterranean</p>
+    </div>
+
+    <!-- GOOGLE MAP -->
+    <div style="margin-top:60px; padding:0 8%;">
+      <iframe 
+        src="https://maps.google.com/maps?q=Malta&t=&z=13&ie=UTF8&iwloc=&output=embed"
+        width="100%" 
+        height="400" 
+        style="border:1px solid var(--glass-border); border-radius:12px; filter: grayscale(0.5) contrast(1.2);">
+      </iframe>
+    </div>
+  </section>
+
+  <footer>
+    <p style="text-align:center; padding:40px; color: var(--text-muted); font-size: 14px;">© 2025 Malta Contractor</p>
+  </footer>
+
+  <!-- Script for Cursor Movement -->
+  <script>
+    const cursor = document.getElementById('cursor');
+    const trail = document.getElementById('cursor-trail');
+
+    window.addEventListener('mousemove', (e) => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+      
+      setTimeout(() => {
+        trail.style.left = e.clientX + 'px';
+        trail.style.top = e.clientY + 'px';
+      }, 50);
+    });
+  </script>
 
 </body>
 </html>
